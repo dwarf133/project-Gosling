@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+    postgres:
+        container_name: postgres_container_gosling
+        image: postgres:14.5
+        environment:
+            POSTGRES_DB: "gosling"
+            POSTGRES_USER: "gosling"
+            POSTGRES_PASSWORD: "i_am_drive"
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        volumes:
+            - ../2. Init Database:/docker-entrypoint-initdb.d
+            - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+        ports:
+            - "5434:5432"
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U taproom -d taproom"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+        restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: 4G
+        networks:
+            - postgres_gosling
+
+networks:
+    postgres_gosling:
+        driver: bridge
