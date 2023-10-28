@@ -5,8 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -21,8 +21,8 @@ class Lesson extends Model
     use HasFactory;
     protected $guarded = ['id', 'course_id'];
 
-    public function course(): hasOne {
-        return $this->hasOne(Course::class);
+    public function course(): belongsTo {
+        return $this->belongsTo(Course::class);
     }
 
     public function materials(): hasMany {

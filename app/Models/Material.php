@@ -6,7 +6,8 @@ use App\Enums\MaterialType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -28,7 +29,11 @@ class Material extends Model
         'type' => MaterialType::class,
     ];
 
-    public function lesson(): hasOne {
-        return $this->hasOne(Lesson::class);
+    public function lesson(): belongsTo {
+        return $this->belongsTo(Lesson::class);
+    }
+
+    public function results(): hasMany {
+        return $this->hasMany(Result::class);
     }
 }
