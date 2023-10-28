@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('assigned_courses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Course::class);
+            $table->integer('course_id');
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

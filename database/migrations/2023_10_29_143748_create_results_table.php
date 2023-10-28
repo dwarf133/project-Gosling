@@ -16,7 +16,13 @@ return new class extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Course::class);
+            $table->integer('course_id');
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->onUpdate('cascade');
+            $table->string('file_path')->nullable();
+            $table->text('text')->nullable();
             $table->integer('score');
             $table->timestamps();
         });
