@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('fio');
-            $table->foreignIdFor(Department::class);
+            $table->foreignIdFor(Department::class)->nullable();
             $table->foreignIdFor(Company::class);
         });
     }

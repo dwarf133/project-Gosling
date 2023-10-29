@@ -22,7 +22,10 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'string|required',
+            'description' => 'string|nullable',
+            'logo_image' => 'required',
+            'color' => 'integer',
         ];
     }
 }
