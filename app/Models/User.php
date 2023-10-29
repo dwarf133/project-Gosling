@@ -20,6 +20,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $company_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
+ * @property-read Result[] $results
  */
 class User extends Authenticatable
 {
