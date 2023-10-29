@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
 
@@ -14,15 +15,11 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        $courseId = $request->get("course_id");
-        $lessons = Lesson::query();
-        if($courseId) {
-            $lessons = Lesson::whereCourseId($courseId)->get()->toArray();
-        }
-        else {
-            $lessons = $lessons->get();
-        }
-        return response()->json(['lessons' => $lessons]);
+        return view('pages.lessons', [
+            'lessons' => Lesson::all(),
+            'name' => 'Lesson',
+            'courses' => Course::coursesList(),
+        ]);
     }
 
     /**
@@ -30,7 +27,7 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.lesson-form', ['name' => 'lesson']);
     }
 
     /**
@@ -40,7 +37,7 @@ class LessonController extends Controller
     {
         $lesson = new Lesson($request->validated());
         $status = $lesson->save();
-        return response()->json((object)['status' => $status ? 'ok' : 'error']);
+        return redirect()->route('lessons.index');
     }
 
     /**
@@ -48,7 +45,8 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        return response()->json([
+        return view("pages.lessons-show", [
+            'name' => "lesson's materials",
             'lesson' => $lesson,
             'materials' => $lesson->materials()->get()->toArray(),
         ]);
@@ -59,7 +57,7 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
-        //
+        return view('pages.course-form', ['lesson' => $lesson, 'name' => 'lesson']);
     }
 
     /**
@@ -68,7 +66,7 @@ class LessonController extends Controller
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
         $status = $lesson->update($request->validated());
-        return response()->json((object)['status' => $status ? 'ok' : 'error']);
+        return redirect()->route('lessons.index');
     }
 
     /**

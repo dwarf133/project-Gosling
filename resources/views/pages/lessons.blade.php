@@ -14,9 +14,10 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role
-                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Название</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Курс</th>
+
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Create Date</th>
@@ -26,25 +27,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($courses as $course)
+                            @foreach($lessons as $lesson)
                                 <tr>
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <a href="{{ route('courses.show', $course->id) }}"><h6 class="mb-0 text-sm">{{ $course->name }}</h6></a>
+                                                <a href="{{ route('lessons.show', $lesson->id) }}"><h6 class="mb-0 text-sm">{{ $lesson->name }}</h6></a>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">{{ $course->description }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $lesson->description }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $courses[$lesson->course_id] }}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $course->created_at }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $lesson->created_at }}</p>
                                     </td>
                                     <td class="align-middle text-end">
                                         <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                            <a href="{{ route('courses.edit', $course->id) }}" class="text-sm font-weight-bold mb-0">Edit</a>
-                                            <a href="{{ route('courses.destroy', $course->id) }}" class="text-sm font-weight-bold mb-0 ps-2">Delete</a>
+                                            <a href="{{ route('lessons.edit', $lesson->id) }}" class="text-sm font-weight-bold mb-0">Edit</a>
+                                            <a href="{{ route('lessons.destroy', $lesson->id) }}" class="text-sm font-weight-bold mb-0 ps-2">Delete</a>
                                         </div>
                                     </td>
                                 </tr>

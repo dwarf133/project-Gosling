@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -47,7 +48,11 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('pages.course-form', ['course' => $course, 'name' => 'course']);
+        return view('pages.courses-show', [
+            'course' => $course,
+            'name' => 'course lessons',
+            'lessons' => Lesson::whereCourseId($course->id)->get(),
+        ]);
     }
 
     /**

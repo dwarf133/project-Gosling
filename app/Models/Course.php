@@ -29,4 +29,13 @@ class Course extends Model
         return $this->hasMany(Lesson::class);
     }
 
+    public static function coursesList() {
+        $list = [];
+        $courses = self::all();
+        foreach ($courses as $course) {
+            $list[$course->id] = $course->name;
+        }
+        return $list;
+    }
+
 }
