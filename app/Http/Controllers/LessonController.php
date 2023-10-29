@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Models\Lesson;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $courseId = $request->get("course_id");
+        $lessons = Lesson::query();
+        if($courseId) {
+            $lessons = Lesson::whereCourseId($courseId)->get()->toArray();
+        }
+        else {
+            $lessons = $lessons->get();
+        }
+        return response()->json(['lessons' => $lessons]);
     }
 
     /**
@@ -29,7 +38,9 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        //
+        $lesson = new Lesson($request->validated());
+        $status = $lesson->save();
+        return response()->json((object)['status' => $status ? 'ok' : 'error']);
     }
 
     /**
@@ -37,7 +48,10 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        //
+        return response()->json([
+            'lesson' => $lesson,
+            'materials' => $lesson->materials()->get()->toArray(),
+        ]);
     }
 
     /**
@@ -53,7 +67,8 @@ class LessonController extends Controller
      */
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
-        //
+        $status = $lesson->update($request->validated());
+        return response()->json((object)['status' => $status ? 'ok' : 'error']);
     }
 
     /**
