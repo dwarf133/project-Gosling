@@ -57,7 +57,7 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
-        return view('pages.course-form', ['lesson' => $lesson, 'name' => 'lesson']);
+        return view('pages.material-form', ['lesson' => $lesson, 'name' => 'lesson']);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
+use App\Models\Lesson;
 use App\Models\Material;
 
 class MaterialController extends Controller
@@ -13,7 +14,11 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.materials', [
+            'materials' => Material::all(),
+            'name' => 'Materials',
+            'lessons' => Lesson::lessonsList(),
+        ]);
     }
 
     /**
@@ -21,7 +26,7 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.material-form', ['name' => 'material']);
     }
 
     /**
@@ -41,6 +46,7 @@ class MaterialController extends Controller
             isset($file) ? ["document_path" => 'storage/materials' . $fileName] : []
         ));
         $material->save();
+        return redirect()->route('materials.index');
     }
 
     /**
@@ -48,7 +54,7 @@ class MaterialController extends Controller
      */
     public function show(Material $material)
     {
-        //
+        return view('pages.material-show', ['material' => $material, 'name' => 'show material', 'lessons' => Lesson::lessonsList(),]);
     }
 
     /**
@@ -56,7 +62,7 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        //
+        return view('pages.material-form', ['material' => $material, 'name' => 'lesson']);
     }
 
     /**
@@ -64,7 +70,7 @@ class MaterialController extends Controller
      */
     public function update(UpdateMaterialRequest $request, Material $material)
     {
-        //
+        return redirect()->route('materials.index');
     }
 
     /**

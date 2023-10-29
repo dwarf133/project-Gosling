@@ -30,4 +30,13 @@ class Lesson extends Model
     public function materials(): hasMany {
         return $this->hasMany(Material::class);
     }
+
+    public static function lessonsList() {
+        $list = [];
+        $courses = self::all();
+        foreach ($courses as $course) {
+            $list[$course->id] = $course->name;
+        }
+        return $list;
+    }
 }
