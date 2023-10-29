@@ -13,7 +13,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['courses' =>  Course::all()]);
     }
 
     /**
@@ -29,7 +29,12 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $course = new Course(array_merge([
+            $request->validated(),
+            ['user_id' => $request->user()->id]
+        ]));
+        $status = $course->save();
+        return response()->json((object)['status' => $status ? 'ok' : 'error']);
     }
 
     /**
@@ -37,7 +42,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return response()->json([
+            'course' => $course,
+            'lessons' => $course->lessons()->get()->toArray(),
+        ]);
     }
 
     /**
@@ -53,7 +61,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $course->update($request->validated());
     }
 
     /**
