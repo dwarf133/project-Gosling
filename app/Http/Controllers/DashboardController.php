@@ -8,10 +8,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $users = User::query()->each(function (User &$user){
-            $sum = $user->results()->sum('score');
-            $avg = $user->results()->sum('score');
+        $users = User::query()->get()->each(function (User &$user){
+            $user->sum = $user->results()->sum('score');
+            $user->avg = intval($user->results()->avg('score'));
+            return $user;
         });
-        return view('pages.dashboard');
+
+        return view('pages.dashboard', ['users' => $users]);
     }
 }
