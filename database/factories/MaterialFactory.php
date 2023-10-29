@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\MaterialType;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class MaterialFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'description' => fake()->text(),
+            'document_path' => fake()->imageUrl(),
+            'lesson_id' => Lesson::query()->inRandomOrder()->first()->id,
+            'type' => MaterialType::File
         ];
     }
 }

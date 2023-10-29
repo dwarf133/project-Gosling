@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->firstNameFemale(),
+            'description' => fake()->realText(15),
+            'parent_id' => rand(1, 10),
+            'company_id' => Company::query()->inRandomOrder()->first()->id,
         ];
     }
 }

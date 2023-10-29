@@ -20,6 +20,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $company_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
+ * @property-read Result[] $results
  */
 class User extends Authenticatable
 {
@@ -32,6 +34,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'fio',
         'email',
         'password',
     ];
@@ -70,5 +73,14 @@ class User extends Authenticatable
 
     public function company(): belongsTo {
         return $this->belongsTo(Department::class);
+    }
+
+    public static function usersList() {
+        $list = [];
+        $courses = self::all();
+        foreach ($courses as $course) {
+            $list[$course->id] = $course->name;
+        }
+        return $list;
     }
 }

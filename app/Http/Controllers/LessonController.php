@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Models\Course;
 use App\Models\Lesson;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('pages.lessons', [
+            'lessons' => Lesson::all(),
+            'name' => 'Lesson',
+            'courses' => Course::coursesList(),
+        ]);
     }
 
     /**
@@ -21,7 +27,7 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.lesson-form', ['name' => 'lesson']);
     }
 
     /**
@@ -29,7 +35,9 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        //
+        $lesson = new Lesson($request->validated());
+        $status = $lesson->save();
+        return redirect()->route('lessons.index');
     }
 
     /**
@@ -37,7 +45,11 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        //
+        return view("pages.lessons-show", [
+            'name' => "lesson's materials",
+            'lessons' => $lesson,
+            'materials' => $lesson->materials()->get(),
+        ]);
     }
 
     /**
@@ -45,7 +57,7 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
-        //
+        return view('pages.material-form', ['lesson' => $lesson, 'name' => 'lesson']);
     }
 
     /**
@@ -53,7 +65,8 @@ class LessonController extends Controller
      */
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
-        //
+        $status = $lesson->update($request->validated());
+        return redirect()->route('lessons.index');
     }
 
     /**

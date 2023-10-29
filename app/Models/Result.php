@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Result extends Model
 {
     use HasFactory;
-    protected $guarded = ['id', 'course_id', 'user_id'];
+    protected $guarded = ['id'];
 
     public function user(): belongsTo {
         return $this->belongsTo(User::class);

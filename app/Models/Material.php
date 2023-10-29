@@ -23,7 +23,7 @@ class Material extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['lesson_id', 'id'];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'type' => MaterialType::class,

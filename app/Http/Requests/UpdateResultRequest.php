@@ -11,7 +11,7 @@ class UpdateResultRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateResultRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'text' => 'nullable',
+            'course_id' => 'required',
+            'score' => 'required',
         ];
     }
 }
