@@ -47,8 +47,8 @@ class LessonController extends Controller
     {
         return view("pages.lessons-show", [
             'name' => "lesson's materials",
-            'lesson' => $lesson,
-            'materials' => $lesson->materials()->get()->toArray(),
+            'lessons' => $lesson,
+            'materials' => $lesson->materials()->get(),
         ]);
     }
 

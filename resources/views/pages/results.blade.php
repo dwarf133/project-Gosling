@@ -34,7 +34,7 @@
                                     <td>
                                         <div class="d-flex px-3 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <a href="{{ route('materials.show', $result->id) }}"><h6 class="mb-0 text-sm">{{ $result->score }}</h6></a>
+                                                <a href="{{ route('results.show', $result->id) }}"><h6 class="mb-0 text-sm">{{ $result->score }}</h6></a>
                                             </div>
                                         </div>
                                     </td>
@@ -48,7 +48,7 @@
                                         <p class="text-sm font-weight-bold mb-0">{{ $courses[$result->course_id] }}</p>
                                     </td>
                                     <td>
-                                        <a href="{{ $result->file_path }}"><p class="text-sm font-weight-bold mb-0"> Файл </p></a>
+                                        <a href="{{ '/' . $result->file_path }}"><p class="text-sm font-weight-bold mb-0"> Файл </p></a>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">{{ $result->created_at }}</p>

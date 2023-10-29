@@ -43,7 +43,7 @@
                                         <p class="text-sm font-weight-bold mb-0">{{ $lessons[$material->lesson_id] }}</p>
                                     </td>
                                     <td>
-                                        <a href="{{ $material->document_path }}"><p class="text-sm font-weight-bold mb-0"> Файл </p></a>
+                                        <a href="{{ '/' . $material->document_path }}"><p class="text-sm font-weight-bold mb-0"> Файл </p></a>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">{{ $material->created_at }}</p>

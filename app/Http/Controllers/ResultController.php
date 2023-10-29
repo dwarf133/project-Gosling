@@ -41,9 +41,14 @@ class ResultController extends Controller
     {
         $file = null;
         $fileName = "";
+        if($request->file('document')) {
+            $file = $request->file('document');
+            $fileName = $file->hashName();
+            $file->storeAs('public/results/', $fileName);
+        }
         $result = new Result(array_merge(
            $request->validated(),
-            isset($file) ? ["document_path" => 'storage/results/' . $fileName] : [],
+            isset($file) ? ["file_path" => 'storage/results/' . $fileName] : [],
             ['user_id' => Auth::id()],
             ['score' => '-1'],
         ));

@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     @if(isset($result))
-                        <form role="form" method="POST" action={{ route('materials.update', $result->id) }} enctype="multipart/form-data">
+                        <form role="form" method="POST" action={{ route('results.update', $result->id) }} enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="card-header pb-0">
@@ -57,7 +57,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Текст</label>
-                                            <input class="form-control" type="text" name="текст" value="">
+                                            <input class="form-control" type="text" name="text" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
