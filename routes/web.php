@@ -5,6 +5,7 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FaresController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController;
@@ -30,6 +31,7 @@ Route::get('/', function (){
 Route::middleware(['auth'])->group(function () {
     Route::resources([
         'companies' => CompanyController::class,
+        'departments' => DepartmentController::class,
         'courses' => CourseController::class,
         'lessons' => LessonController::class,
         'materials' => MaterialController::class,
