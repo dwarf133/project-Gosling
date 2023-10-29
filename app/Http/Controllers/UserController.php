@@ -41,6 +41,7 @@ class UserController extends Controller
 
         $company = new Company();
         $company->name = $request->name;
+        $company->description = 'Описание компании';
         $company->logo_path = 'logo';
         $company->color = 1;
         $company->save();
