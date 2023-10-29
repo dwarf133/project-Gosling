@@ -39,11 +39,11 @@ class MaterialController extends Controller
         if($request->file('document')) {
             $file = $request->file('document');
             $fileName = $file->hashName();
-            $file->storeAs('public/materials', $fileName);
+            $file->storeAs('public/materials/', $fileName);
         }
         $material = new Material(array_merge(
             $request->validated(),
-            isset($file) ? ["document_path" => 'storage/materials' . $fileName] : []
+            isset($file) ? ["document_path" => 'storage/materials/' . $fileName] : []
         ));
         $material->save();
         return redirect()->route('materials.index');

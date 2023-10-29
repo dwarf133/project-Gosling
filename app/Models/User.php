@@ -74,4 +74,13 @@ class User extends Authenticatable
     public function company(): belongsTo {
         return $this->belongsTo(Department::class);
     }
+
+    public static function usersList() {
+        $list = [];
+        $courses = self::all();
+        foreach ($courses as $course) {
+            $list[$course->id] = $course->name;
+        }
+        return $list;
+    }
 }

@@ -22,7 +22,9 @@ class StoreResultRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'text' => 'nullable',
+            'course_id' => 'required',
+            'document' => 'required',
         ];
     }
 }
