@@ -11,6 +11,7 @@ use App\Models\Result;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,13 @@ class DatabaseSeeder extends Seeder
     {
         Company::factory(50)->create();
         Department::factory(100)->create();
+        (new User([
+            'name' => 'admin',
+            'email' => 'admin@mail.com',
+            'password' => Hash::make('admin'),
+            'company_id' => 1,
+            'department_id' => 1,
+        ]))->save();
         User::factory(200)->create();
         Course::factory(200)->create();
         Lesson::factory(500)->create();
