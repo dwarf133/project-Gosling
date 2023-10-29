@@ -22,7 +22,11 @@ class StoreMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'description' => 'nullable',
+            'lesson_id' => 'required',
+            'type' => 'required',
+            'document' => 'nullable',
         ];
     }
 }

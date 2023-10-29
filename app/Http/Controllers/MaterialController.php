@@ -29,7 +29,18 @@ class MaterialController extends Controller
      */
     public function store(StoreMaterialRequest $request)
     {
-        //
+        $file = null;
+        $fileName = "";
+        if($request->file('document')) {
+            $file = $request->file('document');
+            $fileName = $file->hashName();
+            $file->storeAs('public/materials', $fileName);
+        }
+        $material = new Material(array_merge(
+            $request->validated(),
+            isset($file) ? ["document_path" => 'storage/materials' . $fileName] : []
+        ));
+        $material->save();
     }
 
     /**

@@ -22,7 +22,8 @@ class UpdateTestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'material_id' => 'required',
+            'test' => 'required',
         ];
     }
 }
