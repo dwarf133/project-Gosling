@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -13,7 +14,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return response()->json(['courses' =>  Course::all()]);
+        return view('pages.courses', [
+            'courses' => Course::all(),
+            'name' => 'Course',
+        ]);
     }
 
     /**
@@ -21,7 +25,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.course-form', ['name' => 'course']);
     }
 
     /**
@@ -29,12 +33,13 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        $course = new Course(array_merge([
+        $course = new Course(
             $request->validated(),
-            ['user_id' => $request->user()->id]
-        ]));
+        );
+        $course->user_id = Auth::id();
         $status = $course->save();
-        return response()->json((object)['status' => $status ? 'ok' : 'error']);
+
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -42,10 +47,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return response()->json([
-            'course' => $course,
-            'lessons' => $course->lessons()->get()->toArray(),
-        ]);
+        return view('pages.course-form', ['course' => $course, 'name' => 'course']);
     }
 
     /**
@@ -53,7 +55,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view('pages.course-form', ['course' => $course, 'name' => 'course']);
     }
 
     /**
@@ -62,6 +64,7 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $course->update($request->validated());
+        return redirect()->route('courses.index');
     }
 
     /**
