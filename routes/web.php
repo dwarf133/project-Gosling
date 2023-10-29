@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,8 @@ Route::middleware(['auth'])->group(function () {
         'assigned_courses' => AssignedCourseController::class,
         'tests' => TestController::class,
         'fares' => FaresController::class,
-        'leads' => LeadController::class
+        'leads' => LeadController::class,
+        'users' => UserController::class,
     ]);
 });
 
